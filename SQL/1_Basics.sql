@@ -65,9 +65,100 @@ select * from customers where first_name like 'N%'; -- IN THE BEGINNING
 select * from customers where first_name like '%N'; -- IN THE LAST
 
 SELECT 
-    AVG(age) AS AVERAGE_AGE,
+	AVG(age) AS AVERAGE_AGE,
     MIN(age) AS MINUMUM_AGE,
     MAX(age) AS MAXIMUM_AGE
 FROM CUSTOMERS;
 
-SELECT country, COUNT(*) AS 'Total Count' from CUSTOMERS GROUP BY COUNTRY;
+SELECT country, COUNT(*) AS 'Total Count' from CUSTOMERS GROUP BY COUNTRY; -- default order is ascending
+SELECT country, COUNT(*) AS 'Total Count' from CUSTOMERS GROUP BY COUNTRY ORDER BY country DESC; --changed order to descending
+
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE product (
+  product_Id INTEGER PRIMARY KEY,
+  Product_Name varchar(100) NOT NULL,
+  product_type varchar(100) NOT NULL,
+  product_cost INTEGER not null
+);
+
+INSERT INTO product (product_Id, Product_Name, product_type, product_cost)
+VALUES 
+    (1, 'iPhone 15 Pro Max', 'Smartphone', 1499),
+    (2, 'Samsung Galaxy S24 Ultra', 'Smartphone', 1399),
+    (3, 'Sony Bravia XR A90K OLED', 'Television', 2999),
+    (4, 'LG C3 Series OLED evo', 'Television', 2499),
+    (5, 'MacBook Air M3', 'Laptop', 1199),
+    (6, 'Dell XPS 15', 'Laptop', 1799),
+    (7, 'Sony WH-1000XM5', 'Headphones', 399),
+    (8, 'Bose QuietComfort 45', 'Headphones', 329),
+    (9, 'KitchenAid Artisan Stand Mixer', 'Kitchen Appliance', 499),
+    (10, 'Nespresso VertuoPlus', 'Coffee Maker', 199), -- ... (continue with rows 11-100),
+    (11, 'Nike Air Zoom Pegasus 40', 'Running Shoes', 120),
+    (12, 'Adidas Ultraboost Light', 'Running Shoes', 180),
+    (13, 'Fitbit Charge 6', 'Fitness Tracker', 150),
+    (14, 'Garmin Venu 3', 'Smartwatch', 450),
+    (15, 'Canon EOS R6 Mark II', 'Camera', 2499),
+    (16, 'Sony a7R V', 'Camera', 3899),
+    (17, 'DeWalt 20V Max Cordless Drill', 'Power Tool', 199),
+    (18, 'Bosch 18V Brushless Impact Driver', 'Power Tool', 179),
+    (19, 'Samsonite Winfield 3 DLX Hardside', 'Luggage', 240),
+    (20, 'Away The Carry-On', 'Luggage', 295)
+
+SELECT * FROM product;
+SELECT Product_Name, product_cost FROM product;
+SELECT * FROM product WHERE product_cost = (SELECT max(product_cost) FROM product);
+SELECT * FROM product WHERE product_cost = (SELECT min(product_cost) FROM product);
+SELECT * FROM product WHERE product_cost = (SELECT max(product_cost) FROM product) OR product_cost = (SELECT min(product_cost) FROM product);
+SELECT * FROM product WHERE product_cost = (SELECT max(product_cost) FROM product)
+UNION
+SELECT * FROM product WHERE product_cost = (SELECT min(product_cost) FROM product);
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Order_Transaction (
+  order_id INTEGER PRIMARY KEY,
+  cust_id integer FOREIGN KEY REFERENCES CUSTOMERS(CUSTOMER_ID),
+  prod_Id INTEGER FOREIGN KEY REFERENCES product(product_Id),
+  order_qty integer default 1 ,
+  order_date date
+);
+
+INSERT INTO Order_Transaction (order_id, cust_id, prod_Id, order_qty, order_date)
+VALUES 
+    (1, 1, 3, 1, '2024-06-25'),
+    (2, 5, 1, 2, '2024-06-22'),
+    (3, 8, 7, 1, '2024-06-18'),
+    (4, 3, 6, 1, '2024-06-15'),
+    (5, 10, 2, 3, '2024-06-10'),
+    (6, 7, 9, 1, '2024-06-05'), 
+    (7, 4, 5, 2, '2024-05-30'),
+    (8, 2, 8, 1, '2024-05-27'),
+    (9, 9, 4, 1, '2024-05-22'),
+    (10, 6, 10, 2, '2024-05-18'),
+    (11, 1, 2, 1, '2024-05-15'),
+    (12, 5, 5, 2, '2024-05-10'),
+    (13, 8, 1, 1, '2024-05-08'),
+    (14, 3, 9, 1, '2024-05-01'),
+    (15, 10, 6, 1, '2024-04-28'),
+    (16, 7, 7, 1, '2024-04-25'),
+    (17, 4, 4, 2, '2024-04-20'),
+    (18, 2, 3, 1, '2024-04-17'),
+    (19, 9, 8, 1, '2024-04-15'),
+    (20, 6, 10, 1, '2024-04-10'),
+    (21, 1, 7, 2, '2024-04-05'),
+    (22, 5, 6, 1, '2024-03-30'),
+    (23, 8, 10, 3, '2024-03-25'),
+    (24, 3, 3, 1, '2024-03-20'),
+    (25, 10, 5, 2, '2024-03-15'),
+    (26, 7, 1, 1, '2024-03-10'),
+    (27, 4, 9, 1, '2024-03-05'),
+    (28, 2, 2, 2, '2024-02-28'),
+    (29, 9, 7, 1, '2024-02-25'),
+    (30, 6, 4, 1, '2024-02-20')
+    
+SELECT * FROM Order_Transaction;
+SELECT * FROM product;
+SELECT * FROM CUSTOMERS;
+
+
