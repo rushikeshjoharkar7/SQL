@@ -65,7 +65,7 @@ select * from customers where first_name like 'N%'; -- IN THE BEGINNING
 select * from customers where first_name like '%N'; -- IN THE LAST
 
 SELECT 
-	AVG(age) AS AVERAGE_AGE,
+    AVG(age) AS AVERAGE_AGE,
     MIN(age) AS MINUMUM_AGE,
     MAX(age) AS MAXIMUM_AGE
 FROM CUSTOMERS;
