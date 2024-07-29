@@ -161,4 +161,43 @@ SELECT * FROM Order_Transaction;
 SELECT * FROM product;
 SELECT * FROM CUSTOMERS;
 
+---------------------------------------------------------------------------------------------------
+-JOINS
+----------------------------------------------------------------------------------------------------
+--JOIN 
+--INNER JOIN Condition
+SELECT *
+FROM CUSTOMERS C   -- C is a alias ("as")
+INNER JOIN Order_Transaction OT ON C.CUSTOMER_ID = OT.cust_id
+ORDER BY customer_id;
+
+SELECT *
+FROM CUSTOMERS C   -- C is a alias ("as")
+INNER JOIN Order_Transaction OT ON C.CUSTOMER_ID = OT.cust_id where C.COUNTRY = 'USA';
+
+SELECT *
+FROM CUSTOMERS C   -- C is a alias ("as")
+INNER JOIN Order_Transaction OT ON C.CUSTOMER_ID = OT.cust_id 
+where C.COUNTRY = 'USA' AND OT.order_date > '2024-06-01' 
+ORDER BY customer_id;
+
+
+----------------------------------------------------------------------------------------------------
+--JOIN 
+--LEFT OUTER JOIN Condition
+--RIGHT OUTER JOIN Condition
+SELECT *
+FROM CUSTOMERS C   -- C is a alias ("as")
+LEFT OUTER JOIN Order_Transaction OT ON C.CUSTOMER_ID = OT.cust_id 
+ORDER BY customer_id;
+
+SELECT *
+FROM CUSTOMERS C   -- C is a alias ("as")
+RIGHT OUTER JOIN Order_Transaction OT ON C.CUSTOMER_ID = OT.cust_id
+ORDER BY customer_id;
+
+------------------------------------------------------------------------------------------------------------
+
+
+
 
